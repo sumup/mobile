@@ -20,16 +20,16 @@ var tests = []struct {
 	pkg  string
 	goos string
 }{
-	{"ObjC-Testpkg", "objc", "golang.org/x/mobile/bind/testdata/testpkg", ""},
-	{"Java-Testpkg", "java", "golang.org/x/mobile/bind/testdata/testpkg", ""},
-	{"Go-Testpkg", "go", "golang.org/x/mobile/bind/testdata/testpkg", ""},
-	{"Java-Javapkg", "java", "golang.org/x/mobile/bind/testdata/testpkg/javapkg", "android"},
-	{"Go-Javapkg", "go", "golang.org/x/mobile/bind/testdata/testpkg/javapkg", "android"},
-	{"Go-Javapkg", "go,java,objc", "golang.org/x/mobile/bind/testdata/cgopkg", "android"},
+	{"ObjC-Testpkg", "objc", "github.com/sumup/mobile/bind/testdata/testpkg", ""},
+	{"Java-Testpkg", "java", "github.com/sumup/mobile/bind/testdata/testpkg", ""},
+	{"Go-Testpkg", "go", "github.com/sumup/mobile/bind/testdata/testpkg", ""},
+	{"Java-Javapkg", "java", "github.com/sumup/mobile/bind/testdata/testpkg/javapkg", "android"},
+	{"Go-Javapkg", "go", "github.com/sumup/mobile/bind/testdata/testpkg/javapkg", "android"},
+	{"Go-Javapkg", "go,java,objc", "github.com/sumup/mobile/bind/testdata/cgopkg", "android"},
 }
 
 func installGobind() error {
-	if out, err := exec.Command("go", "install", "golang.org/x/mobile/cmd/gobind").CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", "install", "github.com/sumup/mobile/cmd/gobind").CombinedOutput(); err != nil {
 		return fmt.Errorf("gobind install failed: %v: %s", err, out)
 	}
 	return nil

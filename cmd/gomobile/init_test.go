@@ -114,7 +114,7 @@ var initTmpl = template.Must(template.New("output").Parse(`GOMOBILE={{.GOPATH}}/
 rm -r -f "$GOMOBILE"
 mkdir -p $GOMOBILE
 WORK={{.GOPATH}}/pkg/gomobile/work
-go install -x golang.org/x/mobile/cmd/gobind
+go install -x github.com/sumup/mobile/cmd/gobind
 PWD=$NDK_PATH $NDK_PATH/prebuilt/{{.GOOS}}-{{.NDKARCH}}/bin/python2.7 build/tools/make_standalone_toolchain.py --arch=arm --api=16 --install-dir=$GOMOBILE/ndk-toolchains/arm
 PWD=$NDK_PATH $NDK_PATH/prebuilt/{{.GOOS}}-{{.NDKARCH}}/bin/python2.7 build/tools/make_standalone_toolchain.py --arch=arm64 --api=21 --install-dir=$GOMOBILE/ndk-toolchains/arm64
 PWD=$NDK_PATH $NDK_PATH/prebuilt/{{.GOOS}}-{{.NDKARCH}}/bin/python2.7 build/tools/make_standalone_toolchain.py --arch=x86 --api=16 --install-dir=$GOMOBILE/ndk-toolchains/x86

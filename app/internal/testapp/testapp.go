@@ -11,13 +11,13 @@ import (
 	"log"
 	"net"
 
-	"golang.org/x/mobile/app"
-	"golang.org/x/mobile/app/internal/apptest"
-	"golang.org/x/mobile/event/lifecycle"
-	"golang.org/x/mobile/event/paint"
-	"golang.org/x/mobile/event/size"
-	"golang.org/x/mobile/event/touch"
-	"golang.org/x/mobile/gl"
+	"github.com/sumup/mobile/app"
+	"github.com/sumup/mobile/app/internal/apptest"
+	"github.com/sumup/mobile/event/lifecycle"
+	"github.com/sumup/mobile/event/paint"
+	"github.com/sumup/mobile/event/size"
+	"github.com/sumup/mobile/event/touch"
+	"github.com/sumup/mobile/gl"
 )
 
 func main() {
