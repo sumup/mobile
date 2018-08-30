@@ -1576,7 +1576,7 @@ func (g *JavaGen) GenJava() error {
 	g.Indent()
 	g.Printf("static {\n")
 	g.Indent()
-	g.Printf("Seq.touch(); // for loading the native library\n")
+	g.Printf("Seq.touch(); // for loading the Android context\n")
 	if g.Pkg != nil {
 		for _, p := range g.Pkg.Imports() {
 			if g.validPkg(p) {
@@ -1584,7 +1584,15 @@ func (g *JavaGen) GenJava() error {
 			}
 		}
 	}
+	g.Printf("try {\n")
+	g.Indent()
 	g.Printf("_init();\n")
+	g.Outdent()
+	g.Printf("} catch (UnsatisfiedLinkError e) {\n")
+	g.Indent()
+	g.Printf("// Ignore, assume as we are on a platform that does not support JNI properly.\n")
+	g.Outdent()
+	g.Printf("}\n")
 	g.Outdent()
 	g.Printf("}\n\n")
 	g.Printf("private %s() {} // uninstantiable\n\n", g.className())
