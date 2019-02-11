@@ -20,8 +20,6 @@ public class LoadJNI {
         public static final Object ctx;
 
         static {
-                System.loadLibrary("gojni");
-
                 Object androidCtx = null;
                 try {
                         // TODO(hyangah): check proguard rule.
