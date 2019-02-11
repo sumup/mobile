@@ -31,8 +31,8 @@ func TestIOSBuild(t *testing.T) {
 		pkg  string
 		main bool
 	}{
-		{"golang.org/x/mobile/example/basic", true},
-		{"golang.org/x/mobile/bind/testdata/testpkg", false},
+		{"github.com/sumup/mobile/example/basic", true},
+		{"github.com/sumup/mobile/bind/testdata/testpkg", false},
 	}
 	for _, test := range tests {
 		buf := new(bytes.Buffer)

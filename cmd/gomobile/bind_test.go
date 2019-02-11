@@ -15,7 +15,7 @@ import (
 )
 
 func TestImportPackagesPathCleaning(t *testing.T) {
-	slashPath := "golang.org/x/mobile/example/bind/hello/"
+	slashPath := "github.com/sumup/mobile/example/bind/hello/"
 	pkgs, err := importPackages([]string{slashPath})
 	if err != nil {
 		t.Fatal(err)
@@ -69,7 +69,7 @@ func TestBindAndroid(t *testing.T) {
 		if goos == "windows" {
 			os.Setenv("HOMEDRIVE", "C:")
 		}
-		cmdBind.flag.Parse([]string{"golang.org/x/mobile/asset"})
+		cmdBind.flag.Parse([]string{"github.com/sumup/mobile/asset"})
 		err := runBind(cmdBind)
 		if err != nil {
 			t.Log(buf.String())
@@ -140,7 +140,7 @@ func TestBindIOS(t *testing.T) {
 		if goos == "windows" {
 			os.Setenv("HOMEDRIVE", "C:")
 		}
-		cmdBind.flag.Parse([]string{"golang.org/x/mobile/asset"})
+		cmdBind.flag.Parse([]string{"github.com/sumup/mobile/asset"})
 		err := runBind(cmdBind)
 		if err != nil {
 			t.Log(buf.String())
@@ -175,7 +175,7 @@ func TestBindIOS(t *testing.T) {
 
 var bindAndroidTmpl = template.Must(template.New("output").Parse(`GOMOBILE={{.GOPATH}}/pkg/gomobile
 WORK=$WORK
-GOOS=android CGO_ENABLED=1 gobind -lang=go,java -outdir=$WORK{{if .JavaPkg}} -javapkg={{.JavaPkg}}{{end}} golang.org/x/mobile/asset
+GOOS=android CGO_ENABLED=1 gobind -lang=go,java -outdir=$WORK{{if .JavaPkg}} -javapkg={{.JavaPkg}}{{end}} github.com/sumup/mobile/asset
 GOOS=android GOARCH=arm CC=$GOMOBILE/ndk-toolchains/arm/bin/arm-linux-androideabi-clang CXX=$GOMOBILE/ndk-toolchains/arm/bin/arm-linux-androideabi-clang++ CGO_ENABLED=1 GOARM=7 GOPATH=$WORK:$GOPATH go build -x -buildmode=c-shared -o=$WORK/android/src/main/jniLibs/armeabi-v7a/libgojni.so gobind
 PWD=$WORK/java javac -d $WORK/javac-output -source 1.7 -target 1.7 -bootclasspath {{.AndroidPlatform}}/android.jar *.java
 jar c -C $WORK/javac-output .
@@ -183,7 +183,7 @@ jar c -C $WORK/javac-output .
 
 var bindIOSTmpl = template.Must(template.New("output").Parse(`GOMOBILE={{.GOPATH}}/pkg/gomobile
 WORK=$WORK
-GOOS=darwin CGO_ENABLED=1 gobind -lang=go,objc -outdir=$WORK -tags=ios{{if .Prefix}} -prefix={{.Prefix}}{{end}} golang.org/x/mobile/asset
+GOOS=darwin CGO_ENABLED=1 gobind -lang=go,objc -outdir=$WORK -tags=ios{{if .Prefix}} -prefix={{.Prefix}}{{end}} github.com/sumup/mobile/asset
 GOARM=7 GOOS=darwin GOARCH=arm CC=clang-iphoneos CXX=clang-iphoneos CGO_CFLAGS=-isysroot=iphoneos -miphoneos-version-min=6.1 -arch armv7 CGO_LDFLAGS=-isysroot=iphoneos -miphoneos-version-min=6.1 -arch armv7 CGO_ENABLED=1 GOPATH=$WORK:$GOPATH go build -tags ios -x -buildmode=c-archive -o $WORK/asset-arm.a gobind
 rm -r -f "Asset.framework"
 mkdir -p Asset.framework/Versions/A/Headers
