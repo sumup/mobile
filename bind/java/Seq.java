@@ -37,6 +37,8 @@ public class Seq {
 		try {
 			Class loadJNI = Class.forName("go.LoadJNI");
 			setContext(loadJNI.getDeclaredField("ctx").get(null));
+		} catch (UnsatisfiedLinkError e) {
+			// Ignore, assume as we are on a platform that does not support JNI properly.
 		} catch (ClassNotFoundException e) {
 			// Ignore, assume the user will load JNI for it.
 			log.warning("LoadJNI class not found");
@@ -45,7 +47,13 @@ public class Seq {
 		} catch (IllegalAccessException e) {
 			log.severe("LoadJNI class bad field: " + e);
 		}
-		init();
+
+		try {
+			init();
+		} catch (UnsatisfiedLinkError e) {
+			// Ignore, assume as we are on a platform that does not support JNI properly.
+		}
+
 		Universe.touch();
 	}
 
