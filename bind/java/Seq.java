@@ -35,7 +35,11 @@ public class Seq {
 
 	static {
 		System.loadLibrary("gojni");
-		init();
+		try {
+			init();
+		} catch (UnsatisfiedLinkError e) {
+			// Ignore, assume as we are on a platform that does not support JNI properly.
+		}
 		Universe.touch();
 	}
 

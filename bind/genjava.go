@@ -1606,7 +1606,15 @@ func (g *JavaGen) GenJava() error {
 			}
 		}
 	}
+	g.Printf("try {\n")
+	g.Indent()
 	g.Printf("_init();\n")
+	g.Outdent()
+	g.Printf("} catch (UnsatisfiedLinkError e) {\n")
+	g.Indent()
+	g.Printf("// Ignore, assume as we are on a platform that does not support JNI properly.\n")
+	g.Outdent()
+	g.Printf("}\n")
 	g.Outdent()
 	g.Printf("}\n\n")
 	g.Printf("private %s() {} // uninstantiable\n\n", g.className())
